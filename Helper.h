@@ -23,7 +23,7 @@ public:
 	 static string getPaddedNumber(int num, int digits);
 
 private:
-	static char* Helper::getPartFromSocket(SOCKET sc, int bytesNum);
+	static char* getPartFromSocket(SOCKET sc, int bytesNum);
 
 };
 
