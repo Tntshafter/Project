@@ -1,5 +1,6 @@
 #include <string>
 using namespace std;
+#define CORRECT_ANSWER_INDEX 0
 class Question
 {
 public:
