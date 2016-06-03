@@ -15,7 +15,7 @@ static bool isPasswordValid(string password)
 		letterFlag = false,
 		capLetterFlag = false,
 		noSpaceFlag = true;
-	if (password.length > 3)
+	if (password.length() > 3)
 	{
 		lenFlag = true;
 	}
@@ -23,8 +23,8 @@ static bool isPasswordValid(string password)
 	{
 		noSpaceFlag = false;
 	}
-	int i;
-	for (i = 0; i < password.length; i++)
+	unsigned int i;
+	for (i = 0; i < password.length(); i++)
 	{
 		if (password[i] > SMALL_LETTER_START  && password[i] < SMALL_LETTER_CAP)
 		{
