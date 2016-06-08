@@ -19,12 +19,10 @@ public:
 	 static char* getPartFromSocket(SOCKET sc, int bytesNum, int flags);
 	 static int getIntPartFromSocket(SOCKET sc, int bytesNum);
 	 static string getStringPartFromSocket(SOCKET sc, int bytesNum);
-	 static void sendData(SOCKET sc, std::string message);
 	 static string getPaddedNumber(int num, int digits);
-
+	 static void sendData(SOCKET sc, std::string message);
 private:
 	static char* getPartFromSocket(SOCKET sc, int bytesNum);
-
 };
 
 

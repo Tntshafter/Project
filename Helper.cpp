@@ -1,5 +1,5 @@
 #include "Helper.h"
-
+#pragma comment(lib, "Ws2_32.lib")
 #include <string>
 #include <iomanip>
 #include <sstream>
@@ -30,7 +30,7 @@ int Helper::getMessageTypeCode(SOCKET sc)
 
 // send data to socket
 // this is private function
-void Helper::sendData(SOCKET sc, std::string message) 
+void Helper::sendData(SOCKET sc, std::string message)
 {
 	const char* data = message.c_str();
 	
