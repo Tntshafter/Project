@@ -1,4 +1,5 @@
 #include <string>
+#include <vector>
 using namespace std;
 #define CORRECT_ANSWER_INDEX 0
 class Question
@@ -13,5 +14,5 @@ private:
 	string _question;
 	string _answers[4];
 	int _id;
-
+	int _corrIndex;
 };
