@@ -1,5 +1,5 @@
 #include "Room.h"
-
+#include "User.h"
 Room::Room(User* admin, string name, int questionsNo, int questionTime, int maxUsers, int id)
 {
 	this->_admin = admin;
@@ -19,9 +19,9 @@ void Room::leaveRoom(User*)
 }
 int Room::closeRoom(User*)
 {
-
+	//check if user is admin!
 }
-Vector<std::User*> _users Room::getUsers()
+std::vector<User*> Room::getUsers()
 {
 
 }

@@ -1,27 +1,26 @@
 #include <string>
 #include <vector>
-
 class Room{
 public:
 	Room(User*, string, int, int, int, int);
 	bool joinRoom(User*);
 	void leaveRoom(User*);
 	int closeRoom(User*);
-	Vector<std::User*> _users getUsers();
+	std::vector<User*> getUsers();
 	string getUsersListMessage();
 	int getQuestionsNo();
 	int getId();
 	string getName();
 	
 	string getUsersAsString(vector<User*>, User*);
-	sendMessage(string);
-	sendMessage(User*, string);
+	int sendMessage(string);
+	int sendMessage(User*, string);
 
 
 
 private:
-	//Vector<std::User*> _users;
-	User _admin; //User needs to be created
+	std::vector<User*> _users;
+	User* _admin; 
 	int _maxUsers;
 	int _questionTime;
 	int _id;

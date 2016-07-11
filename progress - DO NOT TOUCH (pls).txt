@@ -1,0 +1,31 @@
+Server:
+dataBase:           |
+header:              |100%
+cpp:                   |
+questions:          |
+scoreboard:        |
+question:            |-
+header:              |100%
+cpp:                   |100%
+helper:               |-
+header:              |100%
+cpp:                   |100%
+game:                |
+header:              |100%
+cpp:                   |
+recievemessage: |-
+header:              |100%
+cpp:                   |100%
+validator:            |-
+header:              |100%
+cpp:                   |100%
+room:                |
+header:              |100%
+cpp:                   |50%
+user:                  |
+header:              |100%
+cpp:                   |50%
+triviaserver:        |
+header:              |
+cpp:                   |
+Client:
