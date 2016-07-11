@@ -1,0 +1,9 @@
+#define CREATE_ROOM_SUCCESS "1440"
+#define CREATE_ROOM_FAIL "1441"
+#define JOIN_ROOM_FAIL "2091"
+#define JOIN_ROOM_SUCCESS "2090"
+#define ROOM_CLOSED "116"
+#define LEAVE_ROOM_SUCCESS "1120"
+#define RETURN_USER_LIST "108"
+#define SQL_OPEN_EXCEPTION 1.01
+#define DB_NAME "triviadb.db"

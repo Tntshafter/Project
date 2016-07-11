@@ -1,9 +1,9 @@
 Server:
 dataBase:           |
 header:              |100%
-cpp:                   |
-questions:          |
-scoreboard:        |
+cpp:                   |15%
+questions:          |0%
+data:                  |0%
 question:            |-
 header:              |100%
 cpp:                   |100%
@@ -12,20 +12,21 @@ header:              |100%
 cpp:                   |100%
 game:                |
 header:              |100%
-cpp:                   |
+cpp:                   |5%
 recievemessage: |-
 header:              |100%
 cpp:                   |100%
 validator:            |-
 header:              |100%
 cpp:                   |100%
-room:                |
+room:                |-
 header:              |100%
-cpp:                   |50%
-user:                  |
+cpp:                   |100%
+user:                  |-
 header:              |100%
-cpp:                   |50%
+cpp:                   |100% 
 triviaserver:        |
 header:              |
 cpp:                   |
+main:                 |
 Client:

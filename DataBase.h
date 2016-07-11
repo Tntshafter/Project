@@ -7,7 +7,7 @@ class DataBase
 public:
 	DataBase();
 	~DataBase();
-	bool isUserExists();
+	bool isUserExists(string );
 	bool addNewUser(string, string, string);
 	bool isUserAndPassMatch(string, string);
 	vector<Question*> initQuestions(int);
@@ -17,6 +17,7 @@ public:
 	bool updateGameStatus(int);
 	bool addAnswerToPlayer(int, string, int, string, bool, int);
 private:
+	sqlite3 * db; //had to add this. impossible without
 	static int callbackCount(void*, int, char**, char**);
 	static int callbackQuestions(void*, int, char**, char**);
 	static int callbackBestScores(void*, int, char**, char**);

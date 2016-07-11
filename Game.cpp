@@ -2,7 +2,13 @@
 #include "User.h"
 Game::Game(const vector<User*>& users, int num, DataBase& db)
 {
-
+	_players = users;
+	 _questions_no = num;
+	 _currQuestionIndex = 0;
+	this->_db = db;
+	_currentTurnAnswers = 0;
+	// make = operator copy and make new questions here
+	//_questions = db.initQuestions(num);
 }
 Game::~Game()
 {
