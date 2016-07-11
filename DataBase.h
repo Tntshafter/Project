@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include "Question.h"
+#include "sqlite3.h"
 using namespace std;
 class DataBase
 {

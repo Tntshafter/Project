@@ -1,24 +1,27 @@
+#include <iostream>
 #include <string>
 #include <WinSock2.h>
 #include <vector>
 #include "RecievedMessage.h"
 #include "Room.h"
-
-class TryviaServer{
-	Using namespace std;
+#include <mutex>
+#include <queue>
+using namespace std;
+class TriviaServer{
+	
 
 public:
      TriviaServer();
      ~TriviaServer();
 
-	 void server();
+	 void serve();
 
 	 void bindAndListen();
 	 void accept();
 	 void clientHandler(SOCKET);
 	 void safeDeleteUser(RecievedMessage*);
 
-	 user* handleSignin(RecievedMessage*);
+	 User* handleSignin(RecievedMessage*);
 	 bool handleSignup(RecievedMessage*);
 	 void handleSignout(RecievedMessage*);
 
@@ -51,9 +54,8 @@ private:
 	map<SOCKET, User*> _connectedUsers;
 	DataBase _db;
 	map<int, Room*> _roomsList;
-
 	mutex _mtxRecievedMessages;
-	queue<
-
+	std::queue<RecievedMessage*> _queRcvMessages;
+	static int _roomIdsequence;
 
 };

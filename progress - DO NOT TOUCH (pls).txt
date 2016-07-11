@@ -12,7 +12,7 @@ header:              |100%
 cpp:                   |100%
 game:                |
 header:              |100%
-cpp:                   |5%
+cpp:                   |15%
 recievemessage: |-
 header:              |100%
 cpp:                   |100%
@@ -26,7 +26,7 @@ user:                  |-
 header:              |100%
 cpp:                   |100% 
 triviaserver:        |
-header:              |
-cpp:                   |
-main:                 |
-Client:
+header:              |100%
+cpp:                   |15%
+main:                 |- (not needed)
+Client:                |0%
