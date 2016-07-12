@@ -23,4 +23,5 @@ private:
 	static int callbackQuestions(void*, int, char**, char**);
 	static int callbackBestScores(void*, int, char**, char**);
 	static int callbackCountPersonalStatus(void*, int, char**, char**);
+	static int callbackExists(void*, int, char**, char**);
 };

@@ -17,7 +17,10 @@ DataBase::~DataBase()
 }
 bool DataBase::isUserExists(string username)
 {
-
+	string command="";
+	char ** err;
+	bool *exists;
+	int rc = sqlite3_exec(db, command.c_str(), callbackCount, exists, err);
 }
 bool DataBase::addNewUser(string username, string passowrd, string email)
 {
