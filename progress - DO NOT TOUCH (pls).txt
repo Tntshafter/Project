@@ -1,9 +1,9 @@
 Server:
 dataBase:           |
 header:              |100%
-cpp:                   |45%
+cpp:                   |80%
 questions:          |0%
-data:                  |100%
+database file:      |100%
 question:            |-
 header:              |100%
 cpp:                   |100%
@@ -12,7 +12,7 @@ header:              |100%
 cpp:                   |100%
 game:                |
 header:              |100%
-cpp:                   |20%
+cpp:                   |30%
 recievemessage: |-
 header:              |100%
 cpp:                   |100%

@@ -1,23 +1,26 @@
 #include "Game.h"
 #include "User.h"
 #include "Protocol.h"
-Game::Game(const vector<User*>& users, int num, DataBase& db)
+Game::Game(const vector<User*>& users, int num, DataBase& db) : _db(db) //providing "official" initializer for the db to prevent errors
 {
 	_players = users;
 	 _questions_no = num;
 	 _currQuestionIndex = 0;
-	this->_db = *db;
 	_currentTurnAnswers = 0;
 	_questions = db.initQuestions(num);
 	
 }
 Game::~Game()
 {
-
+	for (int i = 0; i < _questions.size(); i++)
+	{
+		delete(_questions[i]);
+	}
 }
 void Game::sendFirstQuestion()
 {
-
+	//now seriously, WHAT IS THIS? this is the most useless function i have yet to see -,-
+	sendQuestionToAllUsers();
 }
 void Game::handleFinishGame()
 {
@@ -31,9 +34,13 @@ bool Game::handleAnswerFromUser(User*, int index, int time)
 {
 
 }
-bool Game::leaveGame(User *)
+bool Game::leaveGame(User * use)
 {
-	//check if user is admin ..?
+	if (_currQuestionIndex + 1 == _questions_no)
+	{
+		return false; //game already over
+	}
+
 }
 int Game::getID()
 {
@@ -45,7 +52,7 @@ bool Game::insertGameToDB()
 }
 void Game::initQuestionsFromDB()
 {
-
+	_questions = _db.initQuestions(_questions_no);
 }
 void Game::sendQuestionToAllUsers()
 {
