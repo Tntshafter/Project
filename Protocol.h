@@ -10,3 +10,12 @@
 #define ANSWER_ARRAY_SIZE 4
 #define FAILED_SIGNIN_WRONG_DETAILS "1021"
 #define FAILED_SIGNIN_USER_CONNECTED "1022"
+#define USER_EXISTS_COMMAND "SELECT username FROM t_users WHERE username = " 
+#define FINISH_SQL_COMMAND	" ;"
+#define INSERT_NEW_GAME_COMMAND "INSERT INTO t_games(status,start_time) values(0,datetime('now');"
+#define FIND_GAME_ID_COMMAND "SELECT game_id FROM t_games;"
+//by the way, i could not have a parameter named "password" since its a used command in sqlite3
+#define INSERT_NEW_USER_COMMAND "INSERT INTO t_users(username,pass,email) values("
+#define FINISH_SQL_COMMAND_2 " );"
+#define CHECK_LOGIN_COMMAND "SELECT username FROM t_users WHERE username ="
+#define INIT_QUESTIONS_COMMAND "SELECT * FROM t_questions;"

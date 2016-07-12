@@ -17,11 +17,14 @@ public:
 	int InsertNewGame();
 	bool updateGameStatus(int);
 	bool addAnswerToPlayer(int, string, int, string, bool, int);
+	DataBase& operator=(DataBase arg); //copy operator to initialize databases in Game class
 private:
 	sqlite3 * db; //had to add this. impossible without
 	static int callbackCount(void*, int, char**, char**);
 	static int callbackQuestions(void*, int, char**, char**);
 	static int callbackBestScores(void*, int, char**, char**);
 	static int callbackCountPersonalStatus(void*, int, char**, char**);
-	static int callbackExists(void*, int, char**, char**);
+	static int callbackExists(void*, int, char**, char**); //added for function "isUsernameExists"
+	static int callbackGetGameID(void*, int, char**, char**);//added for "insertNewGame" return value
+	static int callbackLoginCheck(void*, int, char**, char**); //added for "isUserAndPassMatch
 };

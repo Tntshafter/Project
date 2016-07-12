@@ -6,7 +6,7 @@ Game::Game(const vector<User*>& users, int num, DataBase& db)
 	_players = users;
 	 _questions_no = num;
 	 _currQuestionIndex = 0;
-	this->_db = db;
+	this->_db = *db;
 	_currentTurnAnswers = 0;
 	_questions = db.initQuestions(num);
 	
@@ -50,8 +50,8 @@ void Game::initQuestionsFromDB()
 void Game::sendQuestionToAllUsers()
 {
 	string message = "118###";
-	message += _questions[_currQuestionIndex].getQuestion();
-	string * answers = _questions[_currQuestionIndex].getAnswers();
+	message += _questions[_currQuestionIndex]->getQuestion();
+	string * answers = _questions[_currQuestionIndex]->getAnswers();
 	for (int i = 0; i < ANSWER_ARRAY_SIZE; i++)
 	{
 		message += "###";
