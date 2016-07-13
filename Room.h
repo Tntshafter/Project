@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+//#include "User.h"
 class Room{
 public:
 	Room(User*, std::string, int, int, int, int);

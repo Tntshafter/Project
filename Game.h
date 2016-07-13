@@ -19,6 +19,7 @@ private:
 	int _gameId; //added for obvious reasons
 	vector<Question*> _questions;
 	vector<User *> _players;
+	int _currAnswersAmount; //the amount of answers recieved this turn
 	int _questions_no;
 	int _currQuestionIndex;
 	DataBase &_db;

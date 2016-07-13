@@ -40,10 +40,27 @@ void Game::handleFinishGame()
 }
 bool Game::handleNextTurn()
 {
+	if (_currQuestionIndex == _questions_no - 1) return false; //if the game is over
+	if (_players.size() < 2) handleFinishGame(); //if there are not enough players
+	if (_currAnswersAmount < _players.size()) return true;
+	else
+	{
+		if (_currQuestionIndex == _questions_no - 2) //if its the last round
+		{
 
+		}
+		else
+		{
+			_currQuestionIndex++;
+			sendQuestionToAllUsers();
+			_currAnswersAmount = 0;//setting it to 0 to recount it
+		}
+	}
+	return true;
 }
 bool Game::handleAnswerFromUser(User* user, int index, int time)
 {
+	_currAnswersAmount++;
 	bool corrAnswer = false;
 	if (index == _questions[_currQuestionIndex]->getCorrectAnswerIndex() && time <=60)
 	{

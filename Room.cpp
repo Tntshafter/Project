@@ -5,13 +5,13 @@
 Room::Room(User* admin, std::string name, int questionsNo, int questionTime, int maxUsers, int id)
 {
 	
-	this->_admin = admin;
-	this->_name = name;
-	this->_id = id;
-	this->_questionTime = questionTime;
-	this->_questionsNo = questionsNo;
-	this->_maxUsers = maxUsers;
-	this->_users.push_back(admin); //since admin is also a user
+	_admin = admin;
+	_name = name;
+	_id = id;
+	_questionTime = questionTime;
+	_questionsNo = questionsNo;
+	_maxUsers = maxUsers;
+	_users.push_back(admin); //since admin is also a user
 }
 bool Room::joinRoom(User* user)
 {

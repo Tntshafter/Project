@@ -10,9 +10,9 @@ cpp:                   |100%
 helper:               |-
 header:              |100%
 cpp:                   |100%
-game:                |
+game:                |-
 header:              |100%
-cpp:                   |65%
+cpp:                   |100%
 recievemessage: |-
 header:              |100%
 cpp:                   |100%
