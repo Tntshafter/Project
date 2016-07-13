@@ -144,13 +144,25 @@ void TriviaServer::handleSignout(RecievedMessage* msg)
 	}
 }
 
-void TriviaServer::handleLeaveGame(RecievedMessage*)
+void TriviaServer::handleLeaveGame(RecievedMessage* msg)
 {
+	User* user = getUserBySocket(msg->getSock());
 
+	if (user->getRoom() == nullptr)
+	{
+		help.sendData(msg->getSock(), ROOM_CLOSED);
+		return;
+	}
+	user->leaveRoom();
+	help.sendData(msg->getSock(), SUCCESS_LEAVING_ROOM);
 }
-void TriviaServer::handleStartGame(RecievedMessage*)
+void TriviaServer::handleStartGame(RecievedMessage* msg)
 {
-
+	User * user = getUserBySocket(msg->getSock());
+	if (user == nullptr) return;
+	Game * game = new Game(user->getRoom()->getUsers(), user->getRoom()->getQuestionsNo(), _db);
+	game->sendFirstQuestion();
+	_roomsList.erase(user->getGame()->getID()); //a key should work, its a map after all (right?)
 }
 void TriviaServer::handlePlayerAnswer(RecievedMessage* msg)
 {

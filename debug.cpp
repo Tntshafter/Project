@@ -13,6 +13,12 @@
 #include <time.h>
 int main()
 {
+	//introduction
+	/*
+	yes. its a total chaos around here. i am sorry. 
+	*/
+	TriviaServer server;
+	server.serve(); //should trigger the server loop
 	srand(time(NULL));
 	system("pause");
 	return 0;
