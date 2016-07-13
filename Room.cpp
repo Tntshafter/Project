@@ -2,7 +2,7 @@
 #include "User.h"
 #include "Helper.h"
 #include "Protocol.h"
-Room::Room(User* admin, string name, int questionsNo, int questionTime, int maxUsers, int id)
+Room::Room(User* admin, std::string name, int questionsNo, int questionTime, int maxUsers, int id)
 {
 	
 	this->_admin = admin;
@@ -47,9 +47,9 @@ std::vector<User*> Room::getUsers()
 {
 	return _users;
 }
-string Room::getUsersListMessage()
+std::string Room::getUsersListMessage()
 {
-	string list = RETURN_USER_LIST ;
+	std::string list = RETURN_USER_LIST;
 	list += _users.size();
 	list += "##";
 	for (int i = 0; i < _users.size(); i++)
@@ -67,7 +67,7 @@ int Room::getId()
 {
 	return _id;
 }
-string Room::getName()
+std::string Room::getName()
 {
 	return _name;
 }

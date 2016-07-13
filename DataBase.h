@@ -20,7 +20,7 @@ public:
 	DataBase& operator=(DataBase arg); //copy operator to initialize databases in Game class
 private:
 	sqlite3 * db; //had to add this. impossible without
-	static int callbackCount(void*, int, char**, char**);
+	static int callbackCount(void*, int, char**, char**); //counting the amount of lines in t_players_answers
 	static int callbackQuestions(void*, int, char**, char**);
 	static int callbackBestScores(void*, int, char**, char**);
 	static int callbackCountPersonalStatus(void*, int, char**, char**);

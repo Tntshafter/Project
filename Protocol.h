@@ -23,3 +23,6 @@
 #define QUESTION_DATA_LINES 6
 #define GAME_UPDATE_COMMAND "UPDATE t_games SET status = 1 WHERE game_id = "
 #define NEW_ANSWER_COMMAND "INSERT INTO t_players_answers(game_id,username,question_id,player_answer,is_correct,answer_time) values("
+#define BEST_SCORES_COMMAND "SELECT * FROM t_players_answers;"
+#define COUNT_ANSWERS_COMMAND "SELECT COUNT(*) FROM t_players_answers"
+#define TURN_TIME_SCORE 60

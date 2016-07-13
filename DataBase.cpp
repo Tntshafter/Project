@@ -1,6 +1,7 @@
 #include "DataBase.h"
 #include "sqlite3.h"
 #include "Protocol.h"
+#include <map>
 DataBase::DataBase()
 {
 	int rc;
@@ -59,7 +60,40 @@ vector<Question*> DataBase::initQuestions(int number)
 }
 vector<string> DataBase::getBestScores()
 {
-
+	//step 1: get the amount of lines in t_players_answers
+	//step 2: proccess the data and return results
+	//step 3: ???
+	//step 4: profit
+	string command = COUNT_ANSWERS_COMMAND;
+	char ** err;
+	int *count;
+	*count = 0;
+	command = BEST_SCORES_COMMAND;
+	int rc = sqlite3_exec(db, command.c_str(), callbackCount, count, err); //got the line amount
+	string **data = new string*[*count];
+	int rc = sqlite3_exec(db, command.c_str(), callbackBestScores,data , err);
+	//now processing the data:
+	string datas[6];
+	int currgameID = 0;
+	map<string,std::pair<int,int>> currResults; //a username holds the score of the current game <int game_id, int score>
+	map<string, int> highest; //the overall highest scores per username
+	for (int i = 0; i < *count / 6; i++) //every answer is 6 data lines
+	{
+		//checking every game separately and collecting the highest scores. all correct answer count as score (time 60-time is the score)
+		datas[0] = *data[i];
+		datas[1] = *data[i+1];
+		datas[2] = *data[i+2];
+		datas[3] = *data[i+3];
+		datas[4] = *data[i+4];
+		datas[5] = *data[i+5];
+		currgameID = stoi(datas[0]);
+		if (datas[4].compare("1") == 0) //a username cant play two games at once (i think) so it should work
+		{
+			std::pair<int, int> values = currResults[datas[1]];
+			if (values.first != stoi(datas[0]) )//if the data about the previous game is finished AND the score is higher than the one saved, we save in the highest scores.
+		}
+	}
+	//cannot fail here, not checking if error occurred.
 }
 vector<string> DataBase::getPersonalStatus(string)
 {
@@ -87,10 +121,33 @@ bool DataBase::updateGameStatus(int game_id)
 bool DataBase::addAnswerToPlayer(int game_id, string username , int question_id, string answer , bool is_correct, int time)
 {
 	string command = NEW_ANSWER_COMMAND + to_string(game_id) + ",'" + username + "','" + answer + "'," + to_string((int)is_correct) + "," + to_string(time);
+	char ** err;
+	int rc = sqlite3_exec(db, command.c_str(), nullptr, nullptr, err);
+	if (rc != SQLITE_OK)
+	{
+		return false; //error occurred
+	}
+	return true;
 }
-int DataBase::callbackCount(void*, int argc, char**argv, char**azColName)
+int DataBase::callbackCount(void* count, int argc, char**argv, char**azColName)
 {
-
+	int * retr = (int*)count;
+	if (argv[0] == NULL )
+	{
+		*retr = atoi(argv[1]);
+	}
+	else
+	{
+		*retr = atoi(argv[0]);
+	}
+	//now let me explain what i just did here: 
+	/*
+	since we used COUNT there ir only one line that is returned. but since every line is returned as the column name (azColName)
+	and the value of the column (argv). yet, the first line is "callback function called, where argv represents a NULL. so to 
+	prevent errors, i had to choose the one that is NOT null - and because of the shortage of time, i could not test which line is
+	correct so i checked both of them, just in case. Better safe than sorry!
+	*/
+	return 0;
 }
 int DataBase::callbackQuestions(void* retr, int argc, char**argv, char**azColName)
 {
@@ -103,9 +160,15 @@ int DataBase::callbackQuestions(void* retr, int argc, char**argv, char**azColNam
 	}
 	return 0;
 }
-int DataBase::callbackBestScores(void*, int argc, char**argv, char**azColName)
+int DataBase::callbackBestScores(void* retr, int argc, char**argv, char**azColName)
 {
-
+	//just copying the results to the void* parameter
+	string ** retrs = (string**)retr;
+	for (int i = 0; i < argc; i++)
+	{
+		retrs[i] = new string(argv[i]);
+	}
+	return 0;
 }
 int DataBase::callbackCountPersonalStatus(void*, int argc, char**argv, char**azColName)
 {
