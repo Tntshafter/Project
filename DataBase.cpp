@@ -2,6 +2,7 @@
 #include "sqlite3.h"
 #include "Protocol.h"
 #include <map>
+typedef std::map<std::string, int >::iterator it_type; //to scan maps
 DataBase::DataBase()
 {
 	int rc;
@@ -90,14 +91,52 @@ vector<string> DataBase::getBestScores()
 		if (datas[4].compare("1") == 0) //a username cant play two games at once (i think) so it should work
 		{
 			std::pair<int, int> values = currResults[datas[1]];
-			if (values.first != stoi(datas[0]) )//if the data about the previous game is finished AND the score is higher than the one saved, we save in the highest scores.
+			if (values.first != stoi(datas[0]))//if the data about the previous game is finished AND the score is higher than the one saved, we save in the highest scores.
+			{
+				if (!highest[datas[1]])//if no value exists in th amap about the user
+				{
+					highest.insert(std::pair<string, int>(datas[1], currResults[datas[1]].second)); //insert the highscore 
+					currResults[datas[1]].second = 0;
+					currResults[datas[1]].first = stoi(datas[0]); //changing to the new game to recollect scores
+				}
+				else if (highest[datas[1]] < currResults[datas[1]].second) //if it exists, but the current score is higher
+				{
+					highest[datas[1]] = currResults[datas[1]].second;
+					currResults[datas[1]].second = 0;
+					currResults[datas[1]].first = stoi(datas[0]); //changing to the new game to recollect scores
+				}//otherwise theres nothing to do
+			}
 		}
 	}
-	//cannot fail here, not checking if error occurred.
+	//now convert the results from a map to a vector ,sorted form the highest:
+	vector<string> results;
+	int forElement = SCOREBOARD_ROWS;
+	if (highest.size() < SCOREBOARD_ROWS)//if its less than 10, we change the max element in the for to the map size
+	{
+		forElement = highest.size();
+	}
+	int biggest = 0;
+	string biggestName = "";
+	for (int i = 0; i < forElement; i++)
+	{
+		for (it_type iterator = highest.begin(); iterator != highest.end(); iterator++) //finding the highest score in the map
+		{
+			if (iterator->second> biggest)
+			{
+				biggest = iterator->second;
+				biggestName = iterator->first;
+			}
+		}
+		results.push_back(biggestName + " : " + to_string(biggest)); //adding the highest score to the vector - sorted form the highest to lowest
+	}
+	//cannot fail here, not checking if error occurred. (under NORMAL circumstances that this project was built FOR, i think)
+	return results;
 }
 vector<string> DataBase::getPersonalStatus(string)
 {
-
+	//Did not use the original function since no explanation was found for it in the instructions, and i did not find use for it.
+	//however, i am leaving it here as an explanation to the teacher for where did it go to.
+	return vector<string>();
 }
 int DataBase::InsertNewGame()
 {
@@ -172,7 +211,9 @@ int DataBase::callbackBestScores(void* retr, int argc, char**argv, char**azColNa
 }
 int DataBase::callbackCountPersonalStatus(void*, int argc, char**argv, char**azColName)
 {
-
+	//Did not use the original function since no explanation was found for it in the instructions, and i did not find use for it.
+	//however, i am leaving it here as an explanation to the teacher for where did it go to.
+	return 0;
 }
 int DataBase::callbackExists(void* exists, int argc, char**argv, char**azColName)
 {

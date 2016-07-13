@@ -1,7 +1,7 @@
 Server:
-dataBase:           |
+dataBase:           |-
 header:              |100%
-cpp:                   |80%
+cpp:                   |100%
 questions:          |0%
 database file:      |100%
 question:            |-
