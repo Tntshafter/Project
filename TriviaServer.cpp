@@ -7,7 +7,7 @@ Helper help;
 TriviaServer::TriviaServer()
 {
 	//database
-
+	_db = DataBase();
 	//socket
 	WSADATA wsa;
 	SOCKET s;
