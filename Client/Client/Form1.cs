@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Net;
+using System.Net.Sockets;
 namespace Client
 {
     public partial class Form1 : Form
@@ -41,7 +42,33 @@ namespace Client
 
         private void btn_signin_Click(object sender, EventArgs e)
         {
-            // need to be added to check if username and passsword is in the db
+            Socket s = new Socket(AddressFamily.InterNetwork,
+            SocketType.Stream, ProtocolType.Tcp); //casual socket setup
+            IPAddress ipAddress = System.Net.IPAddress.Parse("127.0.0.1"); //localhost since we only use localhost anyway
+            IPEndPoint ipe = new IPEndPoint(ipAddress, 8822); //trivia port
+            try
+            {
+                s.Connect(ipe);
+            }
+            catch (ArgumentNullException ae)
+            {
+                Console.WriteLine("ArgumentNullException : {0}", ae.ToString());
+            }
+            catch (System.Net.Sockets.SocketException se)
+            {
+                Console.WriteLine("SocketException : {0}", se.ToString());
+            }
+            catch (Exception fe)
+            {
+                Console.WriteLine("Unexpected exception : {0}", fe.ToString());
+            }
+            string username="",password="";
+            byte[] msg = System.Text.Encoding.ASCII.GetBytes("200##"+username+"##"+password); //i just realized i was supposed to put numbers and not ##.. 
+            //after all that work done i was wrong
+            //im done.
+            int bytesSent = s.Send(msg);
+
+            int bytesRec = s.Receive(msg);
             if(true)
             {
                 Form3 frm3 = new Form3();

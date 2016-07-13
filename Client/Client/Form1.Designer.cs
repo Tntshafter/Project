@@ -48,7 +48,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(570, 39);
             this.label1.TabIndex = 0;
-            this.label1.Text = "welcome to magshimim tryivia 2016";
+            this.label1.Text = "welcome to magshimim trivia 2016";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
