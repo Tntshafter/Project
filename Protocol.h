@@ -27,3 +27,6 @@
 #define COUNT_ANSWERS_COMMAND "SELECT COUNT(*) FROM t_players_answers"
 #define TURN_TIME_SCORE 60
 #define SCOREBOARD_ROWS 10
+#define FINISHED_GAME_CODE "121"
+#define SPACE "##"
+#define CORRECT_ANSWER "120"

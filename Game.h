@@ -16,6 +16,7 @@ public:
 	bool leaveGame(User *);
 	int getID();
 private:
+	int _gameId; //added for obvious reasons
 	vector<Question*> _questions;
 	vector<User *> _players;
 	int _questions_no;

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "User.h"
 #include "Protocol.h"
+#include <map>
 Game::Game(const vector<User*>& users, int num, DataBase& db) : _db(db) //providing "official" initializer for the db to prevent errors
 {
 	_players = users;
@@ -24,15 +25,47 @@ void Game::sendFirstQuestion()
 }
 void Game::handleFinishGame()
 {
+	_db.updateGameStatus(_gameId);
 
+	string message = FINISHED_GAME_CODE + to_string(_players.size());
+	for (int i = 0; i < _players.size();i++) // collecting the message
+	{
+		message += SPACE + _players[i]->getUsername() + "  " + to_string(_results[_players[i]->getUsername()]); //as intended in the message
+	}
+	for (int i = 0; i < _players.size(); i++)//sending it out
+	{
+		_players[i]->send(message);
+		_players[i]->setGame(nullptr);
+	}
 }
 bool Game::handleNextTurn()
 {
 
 }
-bool Game::handleAnswerFromUser(User*, int index, int time)
+bool Game::handleAnswerFromUser(User* user, int index, int time)
 {
-
+	bool corrAnswer = false;
+	if (index == _questions[_currQuestionIndex]->getCorrectAnswerIndex() && time <=60)
+	{
+		corrAnswer = true;
+		_results[user->getUsername()]++;
+	}
+	int sendValue;
+	if (corrAnswer)
+	{
+		sendValue = 1;
+	}
+	else sendValue = 0;
+	user->send(CORRECT_ANSWER + to_string(sendValue)); //sending back thhe correctness of the answer
+	string answer = _questions[_currQuestionIndex]->getAnswers()[index];
+	if (time > 60)
+	{
+		answer = "";
+	}
+	//now i do not know how "5" could mean *not in time* since im trying to use seconds here. instead, if its higher than 60 ill do so.
+	_db.addAnswerToPlayer(_gameId, user->getUsername(), _questions[_currQuestionIndex]->getId(),
+		answer, corrAnswer, time);
+	_currentTurnAnswers++;
 }
 bool Game::leaveGame(User * use)
 {
@@ -40,15 +73,20 @@ bool Game::leaveGame(User * use)
 	{
 		return false; //game already over
 	}
-
+	use->setGame(nullptr);
+	bool res=handleNextTurn();
+	if (!res)
+	{
+		handleFinishGame();
+	}
 }
 int Game::getID()
 {
-	
+	return _gameId;
 }
 bool Game::insertGameToDB()
 {
-
+	_gameId = _db.InsertNewGame();
 }
 void Game::initQuestionsFromDB()
 {
