@@ -172,23 +172,40 @@ bool TriviaServer::handleCreateRoom(RecievedMessage* msg)
 	bool flag =user->createRoom(_roomIdsequence, values[0], stoi(values[1]), stoi(values[2]), stoi(values[3]));
 	if (flag) _roomsList.insert(std::pair<int, Room *>(_roomIdsequence, user->getRoom()));
 }
-bool TriviaServer::handleCloseRoom(RecievedMessage*)
+bool TriviaServer::handleCloseRoom(RecievedMessage* msg)
 {
-
+	User * user = getUserBySocket(msg->getSock());
+	if (user->getRoom() == nullptr) return false;
+	int res = user->closeRoom();
+	if (res != -1)return true;
+	return false;
 }
-bool TriviaServer::handleJoinRoom(RecievedMessage*)
+bool TriviaServer::handleJoinRoom(RecievedMessage* msg)
 {
-
+	User * user = getUserBySocket(msg->getSock());
+	if (user == nullptr) return false;
+	Room * room = _roomsList[msg->getValues[0]];
+	if (room == nullptr) return false;
+	bool res = user->joinRoom(room);
+	return res;
 }
-bool TriviaServer::handleLeaveRoom(RecievedMessage*)
+bool TriviaServer::handleLeaveRoom(RecievedMessage* msg)
 {
-
+	User * user = getUserBySocket(msg->getSock());
+	if (user == nullptr) return false;
+	Room * room = _roomsList[msg->getValues[0]];
+	if (room == nullptr) return false;
+	user->leaveRoom();
+	return true;
 }
-void TriviaServer::handleGetUsersInRoom(RecievedMessage*)
+void TriviaServer::handleGetUsersInRoom(RecievedMessage* msg)
 {
-
+	Room * room = _roomsList[msg->getValues[0]];
+	if (room == nullptr) return;
+	string message = room->getUsersListMessage();
+	help.sendData(msg->getSock(), message);
 }
-void TriviaServer::handleGetRooms(RecievedMessage*)
+void TriviaServer::handleGetRooms(RecievedMessage* msg)
 {
 
 }

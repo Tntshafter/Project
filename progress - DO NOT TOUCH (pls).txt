@@ -27,6 +27,6 @@ header:              |100%
 cpp:                   |100% 
 triviaserver:        |
 header:              |100%
-cpp:                   |25%
+cpp:                   |40%
 main:                 |- (not needed)
 Client:                |?% (goro)
